@@ -31,6 +31,8 @@ module.exports = {
     port: 3000,
     hot: isDev,
     liveReload: isDev,
+    contentBase: './dist',
+    watchContentBase: true,
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -40,6 +42,7 @@ module.exports = {
         removeComments: isProd,
         collapseWhitespace: isProd,
       },
+      cache: false,
     }),
     new CopyPlugin({
       patterns: [{
