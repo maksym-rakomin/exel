@@ -1,73 +1,10 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <title>Pure JavaScript Excel</title>
-</head>
-<body>
-<div id="app" class="container">
-  <div class="excel">
-    <div class="excel__header">
-      <input type="text" class="input" value="Новая таблица">
+import {ExcelComponent} from '@core/ExcelComponent';
 
-      <div>
-        <div class="button">
-          <span class="material-icons">
-              exit_to_app
-          </span>
-        </div>
-        <div class="button">
-          <span class="material-icons">
-              delete
-          </span>
-        </div>
-      </div>
-    </div>
+export class Table extends ExcelComponent {
+  static className = 'excel__table'
 
-    <div class="excel__toolbar">
-      <div class="button">
-        <span class="material-icons">
-            format_align_left
-        </span>
-      </div>
-      <div class="button">
-        <span class="material-icons">
-            format_align_center
-        </span>
-      </div>
-      <div class="button">
-        <span class="material-icons">
-            format_align_right
-        </span>
-      </div>
-      <div class="button">
-        <span class="material-icons">
-            format_bold
-        </span>
-      </div>
-      <div class="button">
-        <span class="material-icons">
-            format_italic
-        </span>
-      </div>
-      <div class="button">
-        <span class="material-icons">
-            format_underlined
-        </span>
-      </div>
-    </div>
-
-    <div class="excel__formula">
-      <div class="info">fx</div>
-      <div class="input" contenteditable spellcheck="false"></div>
-    </div>
-
-    <div class="excel__table">
+  toHTML() {
+    return `
       <div class="row">
         <div class="row-info"></div>
         <div class="row-data">
@@ -79,7 +16,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>                    
           <div class="column">
             A
           </div>
@@ -88,7 +25,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>                    
           <div class="column">
             A
           </div>
@@ -97,7 +34,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>                    
           <div class="column">
             A
           </div>
@@ -106,7 +43,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>      
           <div class="column">
             A
           </div>
@@ -115,7 +52,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>      
           <div class="column">
             A
           </div>
@@ -124,7 +61,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>         
           <div class="column">
             A
           </div>
@@ -133,7 +70,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>         
           <div class="column">
             A
           </div>
@@ -142,7 +79,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>              
           <div class="column">
             A
           </div>
@@ -151,7 +88,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>          
           <div class="column">
             A
           </div>
@@ -160,7 +97,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>            
           <div class="column">
             A
           </div>
@@ -169,7 +106,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>         
           <div class="column">
             A
           </div>
@@ -178,7 +115,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>              
           <div class="column">
             A
           </div>
@@ -187,7 +124,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>        
           <div class="column">
             A
           </div>
@@ -196,7 +133,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>       
           <div class="column">
             A
           </div>
@@ -205,7 +142,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>    
           <div class="column">
             A
           </div>
@@ -214,7 +151,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>         
           <div class="column">
             A
           </div>
@@ -223,7 +160,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>      
           <div class="column">
             A
           </div>
@@ -232,7 +169,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>       
           <div class="column">
             A
           </div>
@@ -241,7 +178,7 @@
           </div>
           <div class="column">
             C
-          </div>
+          </div>               
           <div class="column">
             A
           </div>
@@ -269,8 +206,6 @@
           <div class="cell selected" contenteditable spellcheck="false">c1</div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-</body>
-</html>
+    `
+  }
+}
