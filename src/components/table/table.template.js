@@ -8,9 +8,7 @@ function createCell() {
 }
 
 function toColumn(col) {
-  return `<div class ="column">
-            ${col}
-          </div>`
+  return `<div class ="column">${col}</div>`
 }
 
 function createRow(content, index = '') {
