@@ -8,13 +8,23 @@ function createCell() {
 }
 
 function toColumn(col) {
-  return `<div class ="column">${col}</div>`
+  return `
+    <div class ="column">
+      ${col}
+      <div class="col-resize"></div>
+    </div>
+  `
 }
 
-function createRow(content, index = '') {
+function createRow(content, index) {
+  const resizeItem = index ? '<div class="row-resize"></div>' : ''
+
   return `<div class="row">
-            <div class="row-info">${index !== '' ? index + 1 : ''}</div>
-            <div class="row-data">${content }</div> 
+            <div class="row-info">
+              ${index ? index: ''}
+              ${resizeItem}
+            </div>
+            <div class="row-data">${content}</div> 
           </div>`
 }
 
@@ -35,10 +45,10 @@ export function createTable(rowCount = 15) {
       .fill(createCell())
       .join('')
 
-  rows.push(createRow(cols))
+  rows.push(createRow(cols, null))
 
   for (let i = 0; i < rowCount; i++) {
-    rows.push(createRow(emptyCols, i))
+    rows.push(createRow(emptyCols, i + 1))
   }
   return rows.join('')
 }
