@@ -1,12 +1,13 @@
 import {ExcelComponent} from '@core/ExcelComponent';
 import {createTable} from '@/components/table/table.template';
+import {resizeTable} from '@/components/table/table.resize';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table'
 
   constructor($root) {
     super($root, {
-      listeners: ['click', 'mousedown', 'mousemove', 'mouseup'],
+      listeners: ['mousedown'],
     });
   }
 
@@ -14,19 +15,7 @@ export class Table extends ExcelComponent {
     return createTable(20)
   }
 
-  onClick() {
-    console.log('click')
-  }
-
-  onMousedown() {
-    console.log('mousedown')
-  }
-
-  onMousemove() {
-    console.log('mousemove')
-  }
-
-  onMouseup() {
-    console.log('mouseup')
+  onMousedown(event) {
+    resizeTable(event, this.$root)
   }
 }
