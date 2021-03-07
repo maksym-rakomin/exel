@@ -25,7 +25,9 @@ export function selectCell(event, $root, selection) {
     document.onmouseup = () => {
       document.onmousemove = null
       document.onmouseup = null
-      selection.selectGroup($cells)
+      $cells.length > 0 ?
+        selection.selectGroup($cells) :
+        selection.select($eTarget)
     }
   }
 }
