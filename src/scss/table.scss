@@ -63,6 +63,12 @@
       outline: 2px solid $selected-color;
       z-index: 2;
     }
+    &.preselected {
+      border: none;
+      outline: 1px solid $selected-color;
+      background-color: fade-out($selected-color, .9);
+      z-index: 2;
+    }
   }
   .col-resize,
   .row-resize {
