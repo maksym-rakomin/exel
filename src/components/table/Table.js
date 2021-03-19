@@ -6,6 +6,7 @@ import {selectCell} from '@/components/table/table.select';
 import {keyNavigation} from '@/components/table/table.keyNavigation';
 import {nextSelector} from '@core/utils';
 import {$} from '@core/dom';
+import * as acitons from '@/redux/actions';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table'
@@ -39,11 +40,17 @@ export class Table extends ExcelComponent {
   }
 
   toHTML() {
-    return createTable(20)
+    return createTable(20, this.store.getState())
   }
 
-  onMousedown(event) {
-    resizeTable(event, this.$root)
+  async onMousedown(event) {
+    try {
+      const data = await resizeTable(event, this.$root)
+      this.$dispatch(acitons.tableResize(data))
+    } catch (e) {
+      console.warn('resize error', e.message)
+    }
+
     selectCell(event, this.$root, this.selection)
   }
 
