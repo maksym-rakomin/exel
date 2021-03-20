@@ -25,8 +25,10 @@ export class Formula extends ExcelComponent {
     this.$on('table:selection', textCell => {
       this.formula.text(textCell.text())
     })
-    this.$on('table:input', textCell => {
-      this.formula.text(textCell.text())
+
+    this.$subscribe(state => {
+      console.log(state)
+      this.formula.text(state.currentText )
     })
   }
 

@@ -3,16 +3,19 @@ const CODES = {
   Z: 90,
 }
 
-function createCell() {
+function createCell(state, row) {
   return function(params, col) {
+    const id = `${row}:${col}`
+    const data = state.dataState[id] || ''
+
     return `<div 
       class="cell" 
       data-col="${col}" 
       data-type="cell"
-      data-id="${params.index}:${col}" 
+      data-id="${id}" 
       contenteditable
       ${params.width}
-      ></div>
+      >${data}</div>
     `
   }
 }
