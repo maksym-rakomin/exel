@@ -24,7 +24,6 @@ export class Formula extends ExcelComponent {
 
     this.formula = this.$root.find('#formula')
     this.$on('table:selection', textCell => {
-      console.log(444, textCell)
       this.formula.text(textCell.text())
     })
   }

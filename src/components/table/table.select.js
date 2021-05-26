@@ -1,12 +1,13 @@
 import {$} from '@core/dom';
 import {range} from '@core/utils';
+import {defaultStyles} from '@/constants';
+import {changeStyles} from '@/redux/actions';
 
 export function selectCell(event, el) {
   if (event.target.dataset.type === 'cell') {
     let $cells = []
     const $eTarget = $(event.target)
     el.selection.select($eTarget)
-    console.log(555, $eTarget)
 
     document.onmousemove = (e) => {
       const current = el.selection.current.id(true)
@@ -22,7 +23,6 @@ export function selectCell(event, el) {
 
       $cells = ids.map(id => el.$root.find(`[data-id="${id}"]`))
       el.selection.preSelectGroup($cells)
-      console.log(66666, $cells)
     }
     document.onmouseup = () => {
       document.onmousemove = null
@@ -33,6 +33,8 @@ export function selectCell(event, el) {
       } else {
         el.selection.select($eTarget)
         el.$emit('table:selection', $eTarget)
+        const styles = $eTarget.getStyles(Object.keys(defaultStyles))
+        el.$dispatch(changeStyles(styles))
       }
     }
   }

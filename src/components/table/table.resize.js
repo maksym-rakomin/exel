@@ -2,9 +2,7 @@ import {$} from '@core/dom';
 
 export function resizeTable(event, $root) {
   const markerResize = event.target.dataset.resize
-  console.log(markerResize, event.target.dataset)
   if (markerResize) {
-    console.log(333)
     return new Promise(resolve => {
       const $resizer = $(event.target)
       const $parent = $resizer.closest('[data-type="resizeble"]')

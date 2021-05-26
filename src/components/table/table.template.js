@@ -1,3 +1,6 @@
+import {toInlineStyles} from '@core/utils';
+import {defaultStyles} from '@/constants';
+
 const CODES = {
   A: 65,
   Z: 90,
@@ -7,6 +10,7 @@ function createCell(state, row) {
   return function(params, col) {
     const id = `${row}:${col}`
     const data = state.dataState[id] || ''
+    const styles = toInlineStyles({...defaultStyles, ...state.stylesState[id]})
 
     return `<div 
       class="cell" 
@@ -14,7 +18,7 @@ function createCell(state, row) {
       data-type="cell"
       data-id="${id}" 
       contenteditable
-      ${params.width}
+      style="${params.width} ${styles}"
       >${data}</div>
     `
   }
@@ -22,7 +26,12 @@ function createCell(state, row) {
 
 function toColumn({col, index, width}) {
   return `
-    <div class ="column" data-type="resizeble" data-col="${index}" ${width}>
+    <div
+      class ="column"
+      data-type="resizeble"
+      data-col="${index}"
+      style="${width}"
+    >
       ${col}
       <div class="col-resize" data-resize="col"></div>
     </div>
@@ -54,7 +63,7 @@ function toChar(el, index) {
 }
 
 function getWidthColumn(index, state) {
-  return state[index] ? `style="width:${state[index]}px"` : ''
+  return state[index] ? `width:${state[index]}px;` : ''
 }
 
 function getHeightRow(index, state) {

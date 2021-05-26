@@ -1,6 +1,6 @@
 import {ExcelComponent} from '@core/ExcelComponent';
 import {createTable} from '@/components/table/table.template';
-// import {resizeTable} from '@/components/table/table.resize';
+import {resizeTable} from '@/components/table/table.resize';
 import {TableSelection} from '@/components/table/TableSelection';
 import {selectCell} from '@/components/table/table.select';
 import {keyNavigation} from '@/components/table/table.keyNavigation';
@@ -38,6 +38,13 @@ export class Table extends ExcelComponent {
       const $next = this.$root.find(nextSelector(key, id))
       this.selection.select($next)
     })
+    this.$on('toolbar:applyStyle', (value) => {
+      this.selection.applyStyle(value)
+      this.$dispatch(acitons.applyStyle({
+        value,
+        ids: this.selection.selectedIds,
+      }))
+    })
   }
 
   toHTML() {
@@ -46,6 +53,7 @@ export class Table extends ExcelComponent {
 
   async onMousedown(event) {
     selectCell(event, this)
+    await resizeTable(event, this.$root)
   }
 
   onKeydown(event) {
