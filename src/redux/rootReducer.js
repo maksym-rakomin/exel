@@ -3,6 +3,7 @@ import {
   CHANGE_STYLES,
   TABLE_RESIZE,
   APPLY_STYLE,
+  CHANGE_TITLE,
 } from '@/redux/types';
 
 export function rootReducer(state, action) {
@@ -36,6 +37,8 @@ export function rootReducer(state, action) {
         currentStyles: {...state.currentStyles, ...action.data.value},
       }
 
+    case CHANGE_TITLE:
+      return {...state, title: action.data }
     default: return state
   }
 }
