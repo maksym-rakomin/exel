@@ -24,7 +24,7 @@ export class Formula extends ExcelComponent {
 
     this.formula = this.$root.find('#formula')
     this.$on('table:selection', textCell => {
-      this.formula.text(textCell.text())
+      this.formula.text(textCell.data.value)
     })
   }
 
@@ -36,7 +36,7 @@ export class Formula extends ExcelComponent {
     this.$emit('formula:input', $(event.target).text())
   }
   onClick(event) {
-    console.log(555, event)
+    console.log('Formula click', event)
   }
   onKeydown(event) {
     const keys = [

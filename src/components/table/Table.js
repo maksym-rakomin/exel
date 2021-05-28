@@ -7,6 +7,7 @@ import {keyNavigation} from '@/components/table/table.keyNavigation';
 import {nextSelector} from '@core/utils';
 import {$} from '@core/dom';
 import * as acitons from '@/redux/actions';
+import {parse} from '@core/parse';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table'
@@ -30,7 +31,9 @@ export class Table extends ExcelComponent {
     this.$emit('table:selection', $cell)
 
     this.$on('formula:input', text => {
-      this.selection.current.text(text)
+      this.selection.current
+          .attr('data-value', text)
+          .text(parse(text))
       this.updateTextInStore(text)
     })
     this.$on('formula:enter', key => {
