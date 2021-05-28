@@ -1,14 +1,16 @@
 import {$} from '@core/dom';
 import {range} from '@core/utils';
+import {defaultStyles} from '@/constants';
+import {changeStyles} from '@/redux/actions';
 
-export function selectCell(event, $root, selection) {
+export function selectCell(event, el) {
   if (event.target.dataset.type === 'cell') {
     let $cells = []
     const $eTarget = $(event.target)
-    selection.select($eTarget)
+    el.selection.select($eTarget)
 
     document.onmousemove = (e) => {
-      const current = selection.current.id(true)
+      const current = el.selection.current.id(true)
       const targetMove = $(e.path[0]).id(true)
 
       const cols = range(targetMove.col, current.col)
@@ -19,15 +21,21 @@ export function selectCell(event, $root, selection) {
         return acc
       }, [])
 
-      $cells = ids.map(id => $root.find(`[data-id="${id}"]`))
-      selection.preSelectGroup($cells)
+      $cells = ids.map(id => el.$root.find(`[data-id="${id}"]`))
+      el.selection.preSelectGroup($cells)
     }
     document.onmouseup = () => {
       document.onmousemove = null
       document.onmouseup = null
-      $cells.length > 0 ?
-        selection.selectGroup($cells) :
-        selection.select($eTarget)
+
+      if ($cells.length > 1) {
+        el.selection.selectGroup($cells)
+      } else {
+        el.selection.select($eTarget)
+        el.$emit('table:selection', $eTarget)
+        const styles = $eTarget.getStyles(Object.keys(defaultStyles))
+        el.$dispatch(changeStyles(styles))
+      }
     }
   }
 }

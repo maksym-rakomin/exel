@@ -33,3 +33,40 @@ export function nextSelector(key, {col, row}) {
   }
   return `[data-id="${row}:${col}"]`
 }
+
+export function storage(key, data = null) {
+  if (!data) {
+    return JSON.parse(localStorage.getItem(key))
+  }
+  localStorage.setItem(key, JSON.stringify(data))
+}
+
+export function isEqual(firstObj, secondObj) {
+  if (typeof firstObj === 'object' && typeof secondObj === 'object') {
+    return JSON.stringify(firstObj) === JSON.stringify(secondObj )
+  }
+  return firstObj === secondObj
+}
+
+export function camelToDashCase(str) {
+  return str.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)
+}
+
+export function toInlineStyles(styles = {}) {
+  return Object.keys(styles)
+      .map(key => `${camelToDashCase(key)}: ${styles[key]}`)
+      .join(';')
+}
+
+export function debounce(fn, wait) {
+  let timeout
+  return function(...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      // eslint-disable-next-line
+      fn.apply(this, args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}

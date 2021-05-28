@@ -6,6 +6,8 @@ import {selectCell} from '@/components/table/table.select';
 import {keyNavigation} from '@/components/table/table.keyNavigation';
 import {nextSelector} from '@core/utils';
 import {$} from '@core/dom';
+import * as acitons from '@/redux/actions';
+import {parse} from '@core/parse';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table'
@@ -26,25 +28,35 @@ export class Table extends ExcelComponent {
     super.init()
     const $cell = this.$root.find('[data-id="0:0"]')
     this.selection.select($cell)
-    this.$emit('table:input', $cell)
+    this.$emit('table:selection', $cell)
 
     this.$on('formula:input', text => {
-      this.selection.current.text(text)
+      this.selection.current
+          .attr('data-value', text)
+          .text(parse(text))
+      this.updateTextInStore(text)
     })
     this.$on('formula:enter', key => {
       const id = this.selection.current.id(true)
       const $next = this.$root.find(nextSelector(key, id))
       this.selection.select($next)
     })
+    this.$on('toolbar:applyStyle', (value) => {
+      this.selection.applyStyle(value)
+      this.$dispatch(acitons.applyStyle({
+        value,
+        ids: this.selection.selectedIds,
+      }))
+    })
   }
 
   toHTML() {
-    return createTable(20)
+    return createTable(20, this.store.getState())
   }
 
-  onMousedown(event) {
-    resizeTable(event, this.$root)
-    selectCell(event, this.$root, this.selection)
+  async onMousedown(event) {
+    selectCell(event, this)
+    await resizeTable(event, this.$root)
   }
 
   onKeydown(event) {
@@ -52,6 +64,13 @@ export class Table extends ExcelComponent {
   }
 
   onInput(event) {
-    this.$emit('table:input', $(event.target))
+    this.updateTextInStore($(event.target).text())
+  }
+
+  updateTextInStore(value) {
+    this.$dispatch(acitons.changeText({
+      id: this.selection.current.id(),
+      value,
+    }))
   }
 }
