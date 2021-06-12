@@ -6,7 +6,11 @@ export function toHTML(key) {
   return `
       <li class="db__record">
         <a href="#excel/${id}">${state.title}</a>
-        <strong>12.06.2020</strong>
+        <strong>
+          ${new Date(state.openedDate).toLocaleDateString()}
+           - 
+          ${new Date(state.openedDate).toLocaleTimeString()}
+        </strong>
       </li>
      `
 }
