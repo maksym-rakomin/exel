@@ -6,7 +6,7 @@ import {selectCell} from '@/components/table/table.select';
 import {keyNavigation} from '@/components/table/table.keyNavigation';
 import {nextSelector} from '@core/utils';
 import {$} from '@core/dom';
-import * as acitons from '@/redux/actions';
+import * as actions from '@/redux/actions';
 import {parse} from '@core/parse';
 
 export class Table extends ExcelComponent {
@@ -43,7 +43,7 @@ export class Table extends ExcelComponent {
     })
     this.$on('toolbar:applyStyle', (value) => {
       this.selection.applyStyle(value)
-      this.$dispatch(acitons.applyStyle({
+      this.$dispatch(actions.applyStyle({
         value,
         ids: this.selection.selectedIds,
       }))
@@ -64,11 +64,12 @@ export class Table extends ExcelComponent {
   }
 
   onInput(event) {
-    this.updateTextInStore($(event.target).text())
+    const text = $(event.target).text()
+    this.updateTextInStore(text)
   }
 
   updateTextInStore(value) {
-    this.$dispatch(acitons.changeText({
+    this.$dispatch(actions.changeText({
       id: this.selection.current.id(),
       value,
     }))

@@ -1,3 +1,5 @@
+import {parse} from '@core/parse';
+
 class Dom {
   constructor(selector) {
     this.$el = typeof selector === 'string' ?
@@ -117,6 +119,14 @@ class Dom {
       res[s] = this.$el.style[s]
       return res
     }, {})
+  }
+
+  parseValue() {
+    const parseText = parse($(this.$el).text())
+
+    $(this.$el).text(parseText)
+
+    return $(this.$el)
   }
 }
 
