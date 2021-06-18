@@ -122,9 +122,11 @@ class Dom {
   }
 
   parseValue() {
-    const parseText = parse($(this.$el).text())
+    const text = $(this.$el).text()
+    const parseText = parse(text)
 
     $(this.$el).text(parseText)
+    $(this.$el).attr('data-value', text)
 
     return $(this.$el)
   }

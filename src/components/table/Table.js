@@ -7,7 +7,6 @@ import {keyNavigation} from '@/components/table/table.keyNavigation';
 import {nextSelector} from '@core/utils';
 import {$} from '@core/dom';
 import * as actions from '@/redux/actions';
-import {parse} from '@core/parse';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table'
@@ -33,13 +32,14 @@ export class Table extends ExcelComponent {
     this.$on('formula:input', text => {
       this.selection.current
           .attr('data-value', text)
-          .text(parse(text))
+          .text(text)
       this.updateTextInStore(text)
     })
     this.$on('formula:enter', key => {
       const id = this.selection.current.id(true)
       const $next = this.$root.find(nextSelector(key, id))
       this.selection.select($next)
+      this.$emit('table:selection', $next)
     })
     this.$on('toolbar:applyStyle', (value) => {
       this.selection.applyStyle(value)
