@@ -1,5 +1,5 @@
 export function parse(value = '') {
-  if (value.startsWith('=')) {
+  if (value.startsWith('=') && value.length > 1) {
     try {
       return String(eval(value.slice(1)))
     } catch (e) {

@@ -7,8 +7,12 @@ export class TableSelection {
   }
 
   select($el) {
+    const elValue = $el.data.value
+
     this.clearSelect()
-    $el. focus().addClass(TableSelection.className)
+
+    $el.focus().addClass(TableSelection.className).text(elValue)
+
     this.group.push($el)
     this.current = $el
   }
@@ -18,6 +22,7 @@ export class TableSelection {
       elem
           .removeClass(TableSelection.className)
           .removeClass('preselected')
+          .parseValue()
     })
     this.group = []
   }
