@@ -7,7 +7,12 @@ export function selectCell(event, el) {
   if (event.target.dataset.type === 'cell') {
     let $cells = []
     const $eTarget = $(event.target)
-    el.selection.select($eTarget)
+    const targetId = $eTarget.id()
+    const selectionCurrentId = el.selection.current.id()
+
+    if (targetId === selectionCurrentId) {
+      return false
+    }
 
     document.onmousemove = (e) => {
       const current = el.selection.current.id(true)
